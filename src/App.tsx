@@ -5,9 +5,11 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const name = 'こんどうです'
 
   return (
     <>
+      <h1 className='name'>{name}</h1>
       <div>
         <a href='https://vite.dev' target='_blank'>
           <img src={viteLogo} className='logo' alt='Vite logo' />
@@ -28,7 +30,24 @@ function App() {
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more
       </p>
+      <Button text='hoge hoge!'>Hoge</Button>
+      <Button text='fuga fuga!'>Fuga</Button>
     </>
+  )
+}
+
+function Button({
+  text,
+  children,
+}: {
+  text: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <p>{text}</p>
+      <button>{children}</button>
+    </div>
   )
 }
 
