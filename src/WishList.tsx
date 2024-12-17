@@ -8,7 +8,21 @@ import Button from '@mui/material/Button'
 import SearchIcon from '@mui/icons-material/Search'
 
 export default function WishList() {
-  const [items, setItems] = useState(['本', '車'])
+  const [items, setItems] = useState<
+    {
+      name: string
+      purchased: boolean
+    }[]
+  >([
+    {
+      name: '車',
+      purchased: false,
+    },
+    {
+      name: '家',
+      purchased: false,
+    },
+  ])
   const [newItem, setNewItem] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -27,7 +41,13 @@ export default function WishList() {
           <Button
             variant='outlined'
             onClick={() => {
-              setItems([newItem, ...items])
+              setItems([
+                {
+                  name: newItem,
+                  purchased: false,
+                },
+                ...items,
+              ])
               setNewItem('')
             }}
           >
@@ -48,16 +68,37 @@ export default function WishList() {
           />
         </div>
         {items
-          .filter((item) => {
+          .filter(({ name }) => {
             if (searchQuery === '') {
               return true
             }
 
-            return item.includes(searchQuery)
+            return name.includes(searchQuery)
           })
-          .map((item) => (
-            <Card key={item}>
-              <CardContent>{item}</CardContent>
+          .map(({ name, purchased }) => (
+            <Card key={name}>
+              <CardContent>
+                <p>{name}</p>
+                <Button
+                  disabled={purchased}
+                  onClick={() => {
+                    setItems(
+                      items.map((item) => {
+                        if (item.name === name) {
+                          return {
+                            ...item,
+                            purchased: true,
+                          }
+                        }
+
+                        return item
+                      })
+                    )
+                  }}
+                >
+                  {purchased ? '購入済み' : '購入'}
+                </Button>
+              </CardContent>
             </Card>
           ))}
       </Stack>
