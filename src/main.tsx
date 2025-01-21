@@ -11,6 +11,7 @@ import Hal from './pages/Hal.tsx'
 import ModeLayout from './layouts/ModeLayout.tsx'
 import TopPage from './pages/TopPage.tsx'
 import HalArea from './pages/HalArea.tsx'
+import Ajax from './pages/Ajax.tsx'
 
 const theme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path=':area' element={<HalArea />} />
             </Route>
           </Route>
+          <Route path='ajax' element={<Ajax />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
